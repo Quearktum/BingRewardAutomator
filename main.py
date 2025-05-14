@@ -19,6 +19,8 @@ if __name__ == "__main__":
     # TO-DO: Explore on Bing with id="explore-on-bing"
     
     # TO-DO: Daily sets and More activities with id="daily-sets" and id="more-activities" <a>class="ds-card-sec ng-scope"
+    # checked: class="mee-icon mee-icon-SkypeCircleCheck"
+    # uchecked: class"mee-icon mee-icon-AddMedium"
     
     search_times = num_search_need(driver)
     

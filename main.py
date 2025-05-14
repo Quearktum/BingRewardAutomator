@@ -3,13 +3,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import random
-import time
-import math
-from daily_sets import daily_sets
-from search_query import get_search_query, execute_prompt
-from reward_search import reward_search
 from num_search_need import num_search_need
+from search_query import get_search_query, execute_prompt
+from daily_sets import daily_sets
+from more_activities import more_activities
+from reward_search import reward_search
 
 
 search_queries = [] 
@@ -17,12 +15,15 @@ search_queries = []
 if __name__ == "__main__":  
     driver = webdriver.Edge()
     
-    # TO-DO: Explore on Bing with id="explore-on-bing"
+    # TO-DO: Explore on Bing with id="explore-on-bing" <a>class="ds-card-sec ng-scope"
     
-    # TO-DO: Daily sets and More activities with id="daily-sets" and id="more-activities" <a>class="ds-card-sec ng-scope"
-    # checked: class="mee-icon mee-icon-SkypeCircleCheck"
-    # uchecked: class"mee-icon mee-icon-AddMedium"
+    # Complete daily sets
     daily_sets(driver)
+    
+    # Complete More Activities
+    more_activities(driver)
+    
+    # Daily PC Search
     search_times = num_search_need(driver)
     
     if (search_times > 0):
@@ -31,5 +32,6 @@ if __name__ == "__main__":
         
         reward_search(search_queries, driver)
     
+    # Cleanup
     print("Job completed, quitting...")
     driver.quit()

@@ -22,12 +22,15 @@ def num_search_need(driver):
                 )
             )
         )
-        current_points = int(float(points_element.text.strip())) 
+        time.sleep(1)
+        print(f"Points string: {points_element.text}")
+        current_points = int(points_element.text) 
         searches_needed = math.ceil(
             (TOTAL_DAILY_POINTS_PC - current_points) / POINTS_PER_SEARCH
         )
         
         print(f"Searches needed: {searches_needed}")
+
         return searches_needed
 
     except Exception as e:

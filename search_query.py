@@ -24,8 +24,8 @@ def execute_prompt(prompt):
         queries = response.text.strip().split("\n")
         # Clean up any empty queries
         queries = [q for q in queries if q.strip()]
-        print(f"Queries: {queries}")
         
+        print(f"Queries: {queries}")
         return queries
     
     except Exception as e:

@@ -16,6 +16,10 @@ search_queries = []
 if __name__ == "__main__":  
     driver = webdriver.Edge()
     
+    # TO-DO: Explore on Bing with id="explore-on-bing"
+    
+    # TO-DO: Daily sets and More activities with id="daily-sets" and id="more-activities" <a>class="ds-card-sec ng-scope"
+    
     search_times = num_search_need(driver)
     
     if (search_times > 0):

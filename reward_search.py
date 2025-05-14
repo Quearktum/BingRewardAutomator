@@ -11,38 +11,72 @@ import math
 from config import TIMEOUT, WAIT_TIME
 
 
+def try_with_retry(action_func, max_attempts=3):
+    for attempt in range(max_attempts):
+        try:
+            return action_func()
+        except Exception as e:
+            if attempt == max_attempts - 1:
+                raise
+            print(f"Attempt {attempt+1} failed, retrying: {e}")
+            time.sleep(1)
+                     
+def load_page(driver, wait):
+    driver.get("https://www.bing.com/")
+    wait.until(lambda d: d.execute_script('return document.readyState') == 'complete')
+    
+def find_search_box(driver, wait):
+    wait.until(EC.presence_of_element_located((By.ID, "sbi_b")))
+    search_box = wait.until(EC.element_to_be_clickable((By.NAME, "q")))
+    driver.execute_script("arguments[0].focus();", search_box)
+                    
+    return search_box
+
 def reward_search(search_queries, driver):
-    wait = WebDriverWait(driver, TIMEOUT)
-
     completed_searches = 0
-
+    
     try:
         for search_query in search_queries:
             try:
+                wait = WebDriverWait(driver, TIMEOUT)
+                
+                # Open new tab
                 driver.execute_script("window.open('');")
                 driver.switch_to.window(driver.window_handles[-1])
-
-                driver.get("https://www.bing.com/")
-                search_box = wait.until(EC.presence_of_element_located((By.NAME, "q")))
-
-                search_box.send_keys(search_query + Keys.ENTER)
-                print(f"Performed search: {search_query}")
-
-                # Wait on results page
+                            
+                try_with_retry(lambda: load_page(driver, wait))
+                             
+                search_box = try_with_retry(lambda: find_search_box(driver, wait))
+                
+                # Perform search
+                search_box.clear()
+                
+                # # Human typer
+                # for char in search_query:
+                #     search_box.send_keys(char)
+                #     time.sleep(0.05)  
+                
+                search_box.send_keys(search_query)
+                time.sleep(0.2) 
+                search_box.send_keys(Keys.ENTER)
+                
+                print(f"Performed search {completed_searches+1}: {search_query}")
+                
                 time.sleep(WAIT_TIME)
-
+                
+                # Close tab and return to main tab
                 driver.close()
                 driver.switch_to.window(driver.window_handles[0])
-
+                
                 completed_searches += 1
-
+                
             except Exception as e:
                 print(f"Error during search '{search_query}': {e}")
-                return completed_searches
-
+                continue  
+        
         print(f"Completed {completed_searches} out of {len(search_queries)} searches.")
         return completed_searches
-
+        
     except Exception as e:
         print(f"Fatal error: {e}")
         return completed_searches

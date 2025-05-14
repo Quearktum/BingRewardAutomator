@@ -7,23 +7,10 @@ import random
 import time
 import math
 
-
+from helper import try_with_retry, load_page
 from config import TIMEOUT, WAIT_TIME
 
-
-def try_with_retry(action_func, max_attempts=3):
-    for attempt in range(max_attempts):
-        try:
-            return action_func()
-        except Exception as e:
-            if attempt == max_attempts - 1:
-                raise
-            print(f"Attempt {attempt+1} failed, retrying: {e}")
-            time.sleep(1)
-                     
-def load_page(driver, wait):
-    driver.get("https://www.bing.com/")
-    wait.until(lambda d: d.execute_script('return document.readyState') == 'complete')
+           
     
 def find_search_box(driver, wait):
     wait.until(EC.presence_of_element_located((By.ID, "sbi_b")))
@@ -44,7 +31,7 @@ def reward_search(search_queries, driver):
                 driver.execute_script("window.open('');")
                 driver.switch_to.window(driver.window_handles[-1])
                             
-                try_with_retry(lambda: load_page(driver, wait))
+                try_with_retry(lambda: load_page(driver, wait, "https://www.bing.com/"))
                              
                 search_box = try_with_retry(lambda: find_search_box(driver, wait))
                 

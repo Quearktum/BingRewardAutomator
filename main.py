@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import random
 import time
 import math
+from daily_sets import daily_sets
 from search_query import get_search_query, execute_prompt
 from reward_search import reward_search
 from num_search_need import num_search_need
@@ -21,7 +22,7 @@ if __name__ == "__main__":
     # TO-DO: Daily sets and More activities with id="daily-sets" and id="more-activities" <a>class="ds-card-sec ng-scope"
     # checked: class="mee-icon mee-icon-SkypeCircleCheck"
     # uchecked: class"mee-icon mee-icon-AddMedium"
-    
+    daily_sets(driver)
     search_times = num_search_need(driver)
     
     if (search_times > 0):

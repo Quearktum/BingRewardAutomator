@@ -8,6 +8,7 @@ from search_query import get_search_query, execute_prompt
 from daily_sets import daily_sets
 from more_activities import more_activities
 from reward_search import reward_search
+from explore_on_bing import explore_on_bing
 
 
 search_queries = [] 
@@ -15,7 +16,8 @@ search_queries = []
 if __name__ == "__main__":  
     driver = webdriver.Edge()
     
-    # TO-DO: Explore on Bing with id="explore-on-bing" <a>class="ds-card-sec ng-scope"
+    # Complete explore on Bing
+    explore_on_bing(driver)
     
     # Complete daily sets
     daily_sets(driver)

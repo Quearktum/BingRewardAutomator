@@ -18,7 +18,7 @@ def daily_sets(driver):
         wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".ds-card-sec .ng-scope")))
         
         tasks = driver.find_elements(By.CSS_SELECTOR, "#daily-sets .mee-icon-AddMedium")      
-        print(f"Found {len(tasks)} card elements")
+        print(f"Found {len(tasks)} task(s) in Daily Sets")
         
         for task in tasks:
             try:
@@ -34,6 +34,7 @@ def daily_sets(driver):
                 
             except Exception as e:
                 print(f"Error processing task: {e}")
+                continue
         
         return "Daily Tasks completed."
     except Exception as e:

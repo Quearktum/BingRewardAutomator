@@ -1,23 +1,17 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 import random
 import time
 import math
 
-from helper import try_with_retry, load_page
+from helper import try_with_retry, load_page, find_search_box
 from config import TIMEOUT, WAIT_TIME
 
            
     
-def find_search_box(driver, wait):
-    wait.until(EC.presence_of_element_located((By.ID, "sbi_b")))
-    search_box = wait.until(EC.element_to_be_clickable((By.NAME, "q")))
-    driver.execute_script("arguments[0].focus();", search_box)
-                    
-    return search_box
+
 
 def reward_search(search_queries, driver):
     completed_searches = 0

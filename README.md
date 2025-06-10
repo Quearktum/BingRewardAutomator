@@ -15,26 +15,36 @@ This application uses Python and Selenium to help you automate daily tasks from 
 
 - Python 3.6+
 - Microsoft Edge browser
-- Selenium WebDriver
-- Google Generative AI (Gemini) API for search query generation
+- Google Generative AI (Gemini) API key
 
 ## Installation
 
-1. Clone this repository
-2. Create a `.env` file with your Gemini API key:
+1. **Clone this repository**
+   ```bash
+   git clone <your-repo-url>
+   cd BingRewardAutomator
    ```
+
+2. **Install required packages**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Set up environment variables**
+   Create a `.env` file in the project root directory:
+   ```env
    GEMINI_API_KEY=your_api_key_here
+   GEMINI_MODEL=gemini-2.5-flash-preview-04-17
    ```
-3. Install required packages:
-   ```
-   pip install selenium python-dotenv google-generativeai
-   ```
+
+4. **Ensure Microsoft Edge is installed**
+   The script uses Microsoft Edge WebDriver which should be automatically managed by Selenium.
 
 ## Usage
 
 Simply run the main script:
 
-```
+```bash
 python main.py
 ```
 
@@ -56,6 +66,14 @@ The application will:
 - `explore_on_bing.py` - Completes "Explore on Bing" tasks
 - `more_activities.py` - Completes additional activities
 - `helper.py` - Utility functions for browser interaction
+- `requirements.txt` - Python package dependencies
+
+## Dependencies
+
+This project requires the following Python packages:
+- `selenium` - For web browser automation
+- `python-dotenv` - For loading environment variables from .env file
+- `google-generativeai` - For AI-powered search query generation
 
 ## Limitations
 
